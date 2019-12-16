@@ -1,0 +1,25 @@
+  <h1 class="appear-on-load d-none">Your groceries. By aisle. 👍</h1>
+      <%= simple_form_for :purchased, url:  edit_meal_plan_path(@meal_plan), method: 'patch', :html=> { class: 'ingr_form_list' } do |f| %>
+        <% i = 0 %>
+        <% @meal_plan.ingr_by_aisle.keys.sort.each do |aisle| %>
+          <div class="ingr_parent_list col-10 col-md-9">
+            <div class="aisle">
+              <div><%= aisle %> <span class="ratio"> (<%= raw(MealPlan.purchased_ratio(@meal_plan.ingr_by_aisle[aisle])) %>)</span></div>
+              <span class="down-caret" style="align=center;"><i class="fas fa-caret-down"></i></span></div>
+          </div>
+          <div class="ingr-list d-none">
+            <div class="row col-10 col-md-9">
+              <% @meal_plan.ingr_by_aisle[aisle].each do |ingr_name, dose_info| %>
+                <%#=dose_info is an array with two elements: dose_info[0] is the dose amount as a string and dose_info[1] is the dose id %>
+                <div class="col-12 col-md-6 list-item mt-3 dose" data-aisle-index=<%= "#{i}" %>>
+                  <%= ingr_name.titleize %><em><%= dose_info[0] %></em>
+                  <div class="purchased d-none">
+                    <%= f.input dose_info[1], as: :boolean, input_html: { checked: Dose.find(dose_info[1]).purchased } %>
+                  </div>
+                </div>
+              <%end%>
+            </div>
+          </div>
+          <% i += 1 %>
+        <% end %>
+      <% end %>

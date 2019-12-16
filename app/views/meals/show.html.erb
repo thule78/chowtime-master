@@ -1,0 +1,102 @@
+<div class="recipe-container">
+  <div class="recipe_wrapper col-md-8 offset-md-2 col-12">
+    <div class="recipe_details d-flex border-bottom">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="recipe_primary_info">
+            <h5><%= link_to "< Back to your plan", meal_plan_path(@meal.meal_plan) %></h5>
+            <h3 style=""><%= @meal.title %></h3>
+            <div class="recipe_summary d-flex justify-content-start py-2 ">
+              <div class="recipe_summary_ingredient">
+                <span class="value font_light_big h2_text"> <%= @meal.doses.count %> </span>
+                <span class="unit font_light_small">Ingredients</span>
+              </div>
+              <% unless @meal.prep_time.nil? %>
+              <div class="recipe_summary_time">
+                <span class="value font_light_big h2_text"> <%= @meal.prep_time %> </span>
+                <span class="unit font_light_small">Minutes</span>
+              </div>
+              <% end %>
+            </div>
+
+            <div class="recipe_ingredients mt-3">
+              <ul class="recipe_ingredients_list">
+                              <h4>Ingredients</h4>
+
+
+              <%= simple_form_for :purchased, url: meal_plan_path(@meal.meal_plan), method: 'patch' do |f| %>
+
+
+
+
+                                <% if @meal.purchased_ingredients.any? %>
+                                  <% @meal.purchased_ingredients.each do |dose| %>
+                                    <li class="purchased-ingredient"> <p> <span class="check-circle"><i style="font-size: inherit;"class="far fa-check-circle"></i></span> <%= dose.direction %> </p> </li>
+                                  <% end %>
+                                  <% if @meal.has_ingredients_to_buy %>
+                                    <p>Ingredients to buy:</p>
+                                    <% @meal.ingredients_to_buy.each do |dose| %>
+              <div class="ingredient d-none">
+                <%= f.input "#{dose.id}", as: :boolean %>
+              </div>
+
+                                      <li> <p style="color:#000" class="dose-direction" data-dose-id="<%= dose.id %>"> <span class="somethin"><i style="font-size: inherit; color:#000" class="far fa-circle"></i></span> <%= dose.direction %> (<%= dose.ingredient.aisle %>) </p> </li>
+                                    <% end %>
+                                  <% end %>
+                                <% else %>
+                                  <% @meal.doses.each do |dose| %>
+
+              <div class="ingredient d-none">
+                <%= f.input "#{dose.id}", as: :boolean %>
+              </div>
+
+                                    <li> <p style="color:#000" class="dose-direction" data-dose-id="<%= dose.id %>"> <i style="font-size: inherit; color:#000" class="far fa-circle"></i> <%= dose.direction %> (<%= dose.ingredient.aisle %>) </p> </li>
+                                  <% end %>
+                                <% end %>
+                            </ul>
+            </div>
+
+            <%#= form submit and form end  %>
+              <% if @meal.can_make_it? %>
+                <h6>You can now cook <%=@meal.title%> 🎉</h6>
+              <% else %>
+                <%= f.submit "Confirm purchases", class: "btn btn-success purchase-button" %>
+              <% end %>
+            <% end %>
+
+          </div>
+        </div>
+
+        <div class="recipe_cooked col-12 col-md-6">
+          <div class="recipe_details_image">
+            <%= image_tag(@meal.image_url) %>
+          </div>
+          <div class="recipe_make_it_btn pt-3">
+            <% if @meal.can_make_it? %>
+                <% if @meal.cooked? %>
+                <p class="cooked-checked"><i class="fas fa-check"></i> Already Cooked </p>
+            <% else %>
+            <%= link_to meal_plan_meal_path(@meal.meal_plan, @meal), method: 'patch' do %>
+              <p class="cooked px-4"><span class="first"><i class="fas fa-check"></i></span> Have you made this <span class="last"><i class="fas fa-question"></i></span><p>
+                <% end %>
+            <% end %>
+            <% else %>
+            <h4 style="color:#f26660">You still need <%= @meal.num_ingredients_left %> more <%= 'ingredient'.pluralize(@meal.num_ingredients_left) %> to make this.</h4>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="directions">
+      <h4>Directions</h4>
+      <% unless @meal.directions.nil? %>
+      <p> <%= sanitize @meal.directions %> </p>
+      <% else %>
+      <p> No directions. </p>
+      <% end %>
+    </div>
+
+
+  </div>
+</div>

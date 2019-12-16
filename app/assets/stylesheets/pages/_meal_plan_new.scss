@@ -1,0 +1,88 @@
+.container_meal_plan_new {
+  max-width: 70%;
+  margin: 100px auto;
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+.meal_plan_icon {
+  list-style: none;
+  padding: 0;
+  img {
+    width: 80px;
+    height: 80px;
+  }
+  .icon {
+    display: inline-block;
+  }
+  .text {
+    position: relative;
+    top: 8px;
+    display: block;
+ }
+ .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: #FF665E;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px;
+    position: absolute;
+    z-index: 1;
+    top: 55px;
+    left: 50%;
+  }
+}
+
+.meal_plan_icon a {
+  text-decoration: none;
+  color: #5a6268;
+  margin: 0 8px;
+  text-align: center;
+  &:hover {
+    color: #6ACFB5;
+    img {
+      border: solid 2px #6ACFB5;
+      padding: 8px;
+      border-radius: 50%;
+    }
+    .tooltiptext {
+      visibility: visible;
+    }
+  }
+}
+
+.kcal.active, .type.active, .allergies.active, .exclusion.active {
+  color: #6ACFB5;
+  img {
+    border: solid 2px #6ACFB5;
+    background-color: #6ACFB5;
+    padding: 8px;
+    border-radius: 50%;
+  }
+}
+
+.allergies.active img, .allergies.active .text {
+  filter: grayscale(100%);
+}
+
+.allergies.active:before, .allergies:hover:before, .allergies.active:after, .allergies:hover:after {
+  position: absolute;
+  content: '';
+  background: #FF665E;
+  display: block;
+  width: 100%;
+  height: 8px;
+  transform: rotate(-45deg);
+  left: 5px;
+  right: 0;
+  top: 0;
+  bottom: 7px;
+  margin: auto;
+}
+
+.diet_type_icon li {
+  padding-left: 0;
+}

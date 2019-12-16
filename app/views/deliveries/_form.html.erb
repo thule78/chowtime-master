@@ -1,0 +1,23 @@
+<%= simple_form_for @delivery, url: meal_plan_deliveries_path  do |f| %>
+  <% if @delivery.errors.any? %>
+    <div class="errors-container">
+      <ul>
+        <% @delivery.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.text_field :address, :placeholder => 'Delivery to:', class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :note, :placeholder => 'Special note:', class: 'form-control'%>
+  </div>
+  <%= f.submit class: 'btn btn-warning' %>
+
+<% end %>
+<br>
+<br>
+<br>
+<br>

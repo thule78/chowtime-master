@@ -1,0 +1,59 @@
+.navbar {
+  justify-content: space-between;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .navbar-collapse {
+  flex-grow: 0;
+  width: 255px;
+}
+
+.navbar .navbar-logo {
+  &:hover {
+    text-decoration: none;
+  }
+  img {
+    height: 30px;
+  }
+}
+
+.navbar .empty {
+  margin-top: 5px;
+  width: 255px;
+  h6 {
+    color: #6ACFB5;
+    .navbar-name:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.dropdown-item {
+  &:hover {
+    background-color: #6ACFB5;
+    color: #F0ECF1;
+  }
+}
+
+.login {
+  margin-left: 200px;
+}
+
+@media (max-width: 575px) {
+  #chowtime {
+    display: none;
+  }
+  #info {
+    margin-top: 192px;
+  }
+  #new-meal-plan {
+    display: none;
+  }
+  h2 {
+    font-size: 35px !important;
+  }
+  p {
+    font-size: 12px !important;
+  }
+}
